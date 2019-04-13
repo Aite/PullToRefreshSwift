@@ -7,6 +7,14 @@
 //
 import UIKit
 
+/*
+ Fix: Simultaneous access to memory due to KVO
+ For more information regarding this global variable follow the followinf links:
+ 1. https://developer.apple.com/swift/blog/?id=6
+ 2. http://michael-brown.net/2017/swift-and-kvo-context-variables/
+ */
+private var kvoContext = "PullToRefreshKVOContext"
+
 open class PullToRefreshView: UIView {
     enum PullToRefreshState {
         case pulling
@@ -19,8 +27,7 @@ open class PullToRefreshView: UIView {
     // MARK: Variables
     let contentOffsetKeyPath = "contentOffset"
     let contentSizeKeyPath = "contentSize"
-    var kvoContext = "PullToRefreshKVOContext"
-    
+
     fileprivate var options: PullToRefreshOption
     fileprivate var backgroundView: UIView
     fileprivate var arrow: UIImageView
